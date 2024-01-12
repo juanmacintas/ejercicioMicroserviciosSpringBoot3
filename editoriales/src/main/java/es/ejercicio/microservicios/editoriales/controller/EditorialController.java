@@ -28,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping(value = "/editoriales/")
 @Api(value = "EditorialController", description="Operaciones sobre las Editoriales de los libros de la Biblioteca")
 public class EditorialController {
 

@@ -15,20 +15,20 @@ import es.ejercicio.microservicios.dto.LibroDTO;
 			fallback = ControlLibros.class)
 public interface ClienteLibros {
 
-   @RequestMapping(path = "/libros/getAll",
+   @RequestMapping(path = "/getAll",
     		method = RequestMethod.GET)
     List<LibroDTO>  obtenerLibros();
 
-   @RequestMapping(path = "/libros/getFavoritos",
+   @RequestMapping(path = "/getFavoritos",
    		method = RequestMethod.GET)
    List<LibroDTO>  obtenerLibrosFavoritos();
 
 
-   @RequestMapping(path = "/libros/getByExample",
+   @RequestMapping(path = "/getByExample",
 	   		method = RequestMethod.POST)
    List<LibroDTO>  obtenerLibrosByExample(@RequestBody LibroDTO input);
 
-   @RequestMapping(path = "/libros/getLibro/{id}",
+   @RequestMapping(path = "/getLibro/{id}",
    		method = RequestMethod.GET)
    LibroDTO obtenerLibro(@PathVariable("id") String id);
 

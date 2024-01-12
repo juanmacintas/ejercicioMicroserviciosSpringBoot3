@@ -16,20 +16,20 @@ import es.ejercicio.microservicios.dto.AutorDTO;
 			fallback = ControlAutores.class)
 public interface ClienteAutores {
 
-	  @RequestMapping(path = "/autores/getAll",
+	  @RequestMapping(path = "/getAll",
 		   		method = RequestMethod.GET)
 	  List<AutorDTO> obtenerAutores();
 
-	  @RequestMapping(path = "/autores/getAutor/{id}",
+	  @RequestMapping(path = "/getAutor/{id}",
     		method = RequestMethod.GET)
 	  ResponseEntity<AutorDTO> obtenerAutor(@PathVariable("id") String id);
 
-	  @RequestMapping(path = "/autores/nuevoAutor",
+	  @RequestMapping(path = "/nuevoAutor",
    		method = RequestMethod.POST)
 	  ResponseEntity<AutorDTO>  nuevoAutor(@RequestBody AutorDTO input);
 
 
-	  @RequestMapping(path = "/autores/deleteAutor/{id}",
+	  @RequestMapping(path = "/deleteAutor/{id}",
    		method = RequestMethod.DELETE)
 	  void eliminarAutor(@PathVariable("id") String id);
 

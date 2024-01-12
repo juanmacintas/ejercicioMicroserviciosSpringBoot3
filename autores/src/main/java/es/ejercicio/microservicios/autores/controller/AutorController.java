@@ -32,7 +32,6 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 @RefreshScope
 @Api(value = "AutorController", description="Operaciones sobre los Autores de los libros de la Biblioteca")
-@RequestMapping(value = "/autores/")
 public class AutorController {
 
 	@Value("${mensaje.bienvenida}")

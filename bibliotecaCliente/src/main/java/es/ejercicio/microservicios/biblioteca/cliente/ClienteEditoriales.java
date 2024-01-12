@@ -18,20 +18,20 @@ import es.ejercicio.microservicios.dto.EditorialDTO;
 			configuration = FeignAutoConfiguration.class)
 public interface ClienteEditoriales {
 
-    @RequestMapping(value = "/editoriales/getAll",
+    @RequestMapping(value = "/getAll",
 	   		method = RequestMethod.GET)
     List<EditorialDTO> obtenerEditoriales();
 
-   @RequestMapping(value = "/editoriales/getEditorial/{id}",
+   @RequestMapping(value = "/getEditorial/{id}",
     		method = RequestMethod.GET)
     EditorialDTO obtenerEditorial(@PathVariable("id") String id);
 
-   @RequestMapping(value = "/editoriales/nuevaEditorial",
+   @RequestMapping(value = "/nuevaEditorial",
    		method = RequestMethod.POST)
    ResponseEntity<EditorialDTO>  nuevaEditorial(@RequestBody EditorialDTO input);
 
 
-   @RequestMapping(value = "/editoriales/deleteEditorial/{id}",
+   @RequestMapping(value = "/deleteEditorial/{id}",
    		method = RequestMethod.DELETE)
    void eliminarEditorial(@PathVariable("id") String id);
 

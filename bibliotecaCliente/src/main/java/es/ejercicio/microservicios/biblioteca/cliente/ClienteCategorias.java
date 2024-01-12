@@ -16,20 +16,20 @@ import es.ejercicio.microservicios.dto.CategoriaDTO;
 			fallback = ControlCategorias.class)
 public interface ClienteCategorias {
 
-  @RequestMapping(path = "/categorias/getAll",
+  @RequestMapping(path = "/getAll",
 	   		method = RequestMethod.GET)
   List<CategoriaDTO> obtenerCategorias();
 
-   @RequestMapping(path = "/categorias/getCategoria/{id}",
+   @RequestMapping(path = "/getCategoria/{id}",
     		method = RequestMethod.GET)
     CategoriaDTO obtenerCategoria(@PathVariable("id") String id);
 
-   @RequestMapping(path = "/categorias/nuevaCategoria",
+   @RequestMapping(path = "/nuevaCategoria",
    		method = RequestMethod.POST)
    ResponseEntity<CategoriaDTO>  nuevaCategoria(@RequestBody CategoriaDTO input);
 
 
-   @RequestMapping(path = "/categorias/deleteCategoria/{id}",
+   @RequestMapping(path = "/deleteCategoria/{id}",
    		method = RequestMethod.DELETE)
    void eliminarCategoria(@PathVariable("id") String id);
 

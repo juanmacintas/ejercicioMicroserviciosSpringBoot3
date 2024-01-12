@@ -28,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @Api(value = "CategoriaController", description="Operaciones sobre las Categorías de los libros de la Biblioteca")
-@RequestMapping(value = "/categorias/")
 public class CategoriaController {
 
 
