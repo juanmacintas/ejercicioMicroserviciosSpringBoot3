@@ -19,11 +19,14 @@ import org.springframework.web.bind.annotation.RestController;
 import es.ejercicio.microservicios.autores.entity.Autor;
 import es.ejercicio.microservicios.autores.service.AutorService;
 import es.ejercicio.microservicios.dto.AutorDTO;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RefreshScope
-@Api(value = "AutorController", description="Operaciones sobre los Autores de los libros de la Biblioteca")
+@Tag(name = "Autores", description = "Controlador de Autores")
 public class AutorController {
 
 	@Value("${mensaje.bienvenida}")
@@ -49,7 +52,6 @@ public class AutorController {
      */
     @RequestMapping(value = "/getMensaje", method = RequestMethod.GET)
     @ApiOperation("Retorna el valor de la propiedad mensaje.bienvenida del fichero de configuración")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Mensaje retornado correctamente", response = String.class)})
     public String getMensaje()  {
        return sMensaje;
     }
@@ -60,11 +62,14 @@ public class AutorController {
      * @throws SQLException
      */
     @RequestMapping(value = "/getAll", method = RequestMethod.GET)
-    @ApiOperation(value = "Retorna todos los autores",
-    			  notes = "Retorna todos los autores almacenados en base de datos",
-    			  response = AutorDTO.class,
-    			  responseContainer = "List")
-    @ApiResponses(value = {@ApiResponse(code = 200, message = "Autores retornados correctamente")})
+    @Operation(
+    	      summary = "Retorna todos los autores",
+    	      description = "Retorna la información de todos los autores",
+    	      tags = { "Autores"})
+    	  @ApiResponses({
+    	      @ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = AutorDTO.class), mediaType = "application/json") }),
+    	      @ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+    	      @ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
     public List<AutorDTO> getAll() throws SQLException {
 
     	List<Autor> autores = autorService.findAll();
@@ -87,12 +92,6 @@ public class AutorController {
      * @throws SQLException
      */
     @RequestMapping(value = "/getAutor/{id}", method = RequestMethod.GET)
-    @ApiOperation(value = "Retorna un Autor",
-	  notes = "Retorna el Autor del id especificado",
-	  response = AutorDTO.class)
-    @ApiResponses(value = {@ApiResponse(code = 404, message = "Autor no encontrado"),
-    					   @ApiResponse(code = 200, message = "Autor encontrado")}
-    						)
     public ResponseEntity<AutorDTO> getAutor(@ApiParam(name = "id", value = "Id del Autor a buscar", required = true) @PathVariable("id") String id) throws SQLException {
     	log.debug("Llamada a getAutor para el id:" + id);
     	Integer idAutor = 0;

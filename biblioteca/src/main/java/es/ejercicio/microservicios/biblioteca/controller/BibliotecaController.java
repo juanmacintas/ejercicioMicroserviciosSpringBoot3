@@ -16,22 +16,21 @@ import es.ejercicio.microservicios.biblioteca.cliente.ClienteAutores;
 import es.ejercicio.microservicios.biblioteca.cliente.ClienteCategorias;
 import es.ejercicio.microservicios.biblioteca.cliente.ClienteEditoriales;
 import es.ejercicio.microservicios.biblioteca.cliente.ClienteLibros;
-
 import es.ejercicio.microservicios.dto.AutorDTO;
 import es.ejercicio.microservicios.dto.CategoriaDTO;
 import es.ejercicio.microservicios.dto.EditorialDTO;
 import es.ejercicio.microservicios.dto.LibroBibliotecaDTO;
 import es.ejercicio.microservicios.dto.LibroDTO;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@Api(value = "BibliotecaController", description="Operaciones sobre la Biblioteca")
+@Tag(name = "Biblioteca", description = "Controlador de Biblioteca")
 public class BibliotecaController {
 
 
@@ -60,8 +59,7 @@ public class BibliotecaController {
 	  responseContainer = "List")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Libros retornadas correctamente")})
     public List<LibroBibliotecaDTO> getAll() throws SQLException {
-
-
+    	log.debug("getAll - Obtiene todos los libros");
 		List<LibroDTO> listaBiblioteca = clienteLibros.obtenerLibros();
 		return getListaBiblioteca(listaBiblioteca);
     }
@@ -78,7 +76,7 @@ public class BibliotecaController {
 	  responseContainer = "List")
     @ApiResponses(value = {@ApiResponse(code = 200, message = "Libros retornadas correctamente")})
     public List<LibroBibliotecaDTO> getAllFavoritos() throws SQLException {
-
+    	log.debug("getAllFavoritos - Obtiene todos los libros");
 
 		List<LibroDTO> listaBiblioteca = clienteLibros.obtenerLibrosFavoritos();
 
@@ -205,12 +203,12 @@ public class BibliotecaController {
 	private List<LibroBibliotecaDTO> getListaBiblioteca(List<LibroDTO> listaBiblioteca) {
 
 		List<LibroBibliotecaDTO> librosBiblioteca = new ArrayList<LibroBibliotecaDTO>();
-		log.debug("Total de Libros Obtenidos:" + listaBiblioteca.size());
 		for(LibroDTO libro : listaBiblioteca) {
 			log.debug("Libro:" + libro);
 			LibroBibliotecaDTO bibliotecaLibro = obtenerValoresLibro(libro);
 			librosBiblioteca.add(bibliotecaLibro);
 		}
+		log.debug("Total de Libros Obtenidos:" + listaBiblioteca.size());
 		return librosBiblioteca;
 	}
 
