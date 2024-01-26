@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.Route;
 
@@ -16,6 +18,8 @@ public class BibliotecaView extends VerticalLayout {
 
 	private Grid<LibroBibliotecaDTO> grid;
 	private BibliotecaService servicioBiblioteca;
+	private Button btFavoritos;
+	private Button btTodos;
 	
     /**
      * Construct a new Vaadin view.
@@ -32,8 +36,9 @@ public class BibliotecaView extends VerticalLayout {
         // Use custom CSS classes to apply styling. This is defined in
         // styles.css.
         addClassName("centered-content");
-
-        add(grid);
+        HorizontalLayout hlBotones = new HorizontalLayout();
+        hlBotones.add(btTodos,btFavoritos);
+        add(hlBotones, grid);
     }
 
 	private void contruirUI() {
@@ -44,10 +49,19 @@ public class BibliotecaView extends VerticalLayout {
 		grid.addColumn(LibroBibliotecaDTO::getCategoria).setHeader("Categoria");
 		grid.addColumn(LibroBibliotecaDTO::getEditorial).setHeader("Editorial");
 
-		List<LibroBibliotecaDTO> libros = servicioBiblioteca.obtieneLibrosBilioteca();
-		grid.setItems(libros);
+	
 		
+		btTodos = new Button("Todos");
+		btTodos.addClickListener(clickEvent -> {
+			List<LibroBibliotecaDTO> libros = servicioBiblioteca.obtieneLibrosBilioteca();
+			grid.setItems(libros);
+		});
 		
+		btFavoritos = new Button("Favoritos");
+		btFavoritos.addClickListener(clickEvent -> {
+			List<LibroBibliotecaDTO> libros = servicioBiblioteca.obtieneLibrosFavoritosBilioteca();
+			grid.setItems(libros);
+		});
 	}
 
 }
